@@ -7,30 +7,60 @@
 
 <h1>Productos</h1>
 
-@if (products == null)
+@if (products == null && string.IsNullOrEmpty(ErrorMessage) && string.IsNullOrEmpty(NoItemsFoundMessage))
 {
     <p><em>Loading...</em></p>
 }
-else
+else if (products?.Any() ?? false)
 {
     <div class="container">
         <div class="row">
             @foreach (var product in products)
             {
                 <div class="col">
-                    <ProductListItem Product="@product"/>
+                    <ProductListItem Product="@product" />
                 </div>
             }
+        </div>
+    </div>
+}
+else if (!string.IsNullOrEmpty(NoItemsFoundMessage))
+{
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            @NoItemsFoundMessage
+        </div>
+    </div>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <div class="container">
+        <div class="alert alert-danger" role="alert">
+            @ErrorMessage
         </div>
     </div>
 }
 
 @code {
     private IEnumerable<Product> products;
+    private string ErrorMessage;
+    private string NoItemsFoundMessage;
 
     protected override async Task OnInitializedAsync()
     {
         var response = await ProductsService.GetProducts();
-        products = response.Data;
+
+        if (response.Success && response.Products != null && response.Products.Any())
+        {
+            products = response.Products;
+        }
+        else if (!string.IsNullOrEmpty(response.Message))
+        {
+            ErrorMessage = response.Message;
+        }
+        else
+        {
+            NoItemsFoundMessage = "No se encontraron Productos.";
+        }
     }
 }

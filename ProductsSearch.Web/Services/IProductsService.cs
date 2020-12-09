@@ -1,8 +1,6 @@
 ﻿namespace ProductsSearch.Web.Services
 {
-    using ProductsSearch.Core.Dto;
-    using ProductsSearch.Core.Entities;
-    using System.Collections.Generic;
+    using ProductsSearch.Web.ViewModels;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -14,6 +12,6 @@
         /// Retrieves a List of Products from the Service
         /// </summary>
         /// <returns></returns>
-        Task<BaseGatewayResponse<IEnumerable<Product>>> GetProducts();
+        Task<ProductsViewModel> GetProducts();
     }
 }

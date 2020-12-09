@@ -13,6 +13,11 @@
         /// <summary>
         /// Error Message for No Entities Found Responses
         /// </summary>
-        public string NoEntitiesFound { get; set; }
+        public string GetNoEntitiesFound { get; set; }
+
+        /// <summary>
+        /// Error Message for Internal errors
+        /// </summary>
+        public string InternalErrorMessage { get; set; }
     }
 }

@@ -4,12 +4,13 @@
     using ProductsSearch.Core.Dto;
     using ProductsSearch.Core.Entities;
     using ProductsSearch.Core.Operations;
+    using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductUseCase;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     ///<inheritdoc cref="IGetProductsUseCase"/>
-    public class GetProductsUseCase
+    public class GetProductsUseCase : IGetProductsUseCase
     {
         private readonly IGetListFromRepository<Product> _getProductsFromRepository;
         private readonly ResponsesSettings _responsesSettings;
@@ -40,7 +41,7 @@
                 errors.AddRange(getProductsResponse.Errors ?? new List<Error>());
 
             else if (!getProductsResponse.Data?.Any() ?? true)
-                errors.Add(new Error(nameof(_responsesSettings.NoEntitiesFound), string.Format(_responsesSettings.NoEntitiesFound, nameof(Product))));
+                errors.Add(new Error(nameof(_responsesSettings.GetNoEntitiesFound), string.Format(_responsesSettings.GetNoEntitiesFound, nameof(Product))));
 
             outputPort.Handle(!errors.Any() ? new GetProductsResponse(getProductsResponse.Data) : new GetProductsResponse(errors));
             return !errors.Any();
