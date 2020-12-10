@@ -12,6 +12,6 @@
         /// Retrieves a List of Products from the Service
         /// </summary>
         /// <returns></returns>
-        Task<ProductsViewModel> GetProducts();
+        Task<ProductsViewModel> GetProducts(string searchTerm);
     }
 }

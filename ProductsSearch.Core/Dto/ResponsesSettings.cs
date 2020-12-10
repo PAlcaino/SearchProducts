@@ -19,5 +19,10 @@
         /// Error Message for Internal errors
         /// </summary>
         public string InternalErrorMessage { get; set; }
+
+        /// <summary>
+        /// Error Message for Invalid Request Parameters
+        /// </summary>
+        public string InvalidParamErrorMessage { get; set; }
     }
 }

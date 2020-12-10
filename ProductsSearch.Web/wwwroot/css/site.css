@@ -9,10 +9,24 @@ html, body {
     height: 35px;
 }
 
+.svg {
+    width: 200px;
+    height: 200px;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+}
+
 .search {
     width: 100%;
     display: flex;
     min-width:500px;
+}
+
+.card {
+    align-items: center;
 }
 
 .searchTerm {

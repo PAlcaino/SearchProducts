@@ -27,10 +27,10 @@ namespace ProductsSearch.Api.Functions.Products
         ///<inheritdoc cref="IGetProductsUseCase"/>
         [FunctionName(nameof(GetProductsAsync))]
         public async Task<IActionResult> GetProductsAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "products")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "products/{filterParam?}")] HttpRequest req, string filterParam = null)
         {
             var presenter = new GetProductsPresenter();
-            var request = new GetProductsRequest();
+            var request = new GetProductsRequest(filterParam);
             await _getProductsUseCase.Handle(request, presenter);
             return presenter.ContentResult;
         }

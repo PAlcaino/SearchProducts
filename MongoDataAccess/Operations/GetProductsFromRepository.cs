@@ -8,6 +8,7 @@
     using ProductsSearch.Core.Operations;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
@@ -45,13 +46,9 @@
         {
             try
             {
-                //var result = _mongoDataBase.GetItems<Product>();
-
-                //var filtered = result
-                //    .Select(x => _mapper.Map<Product>(x))
-                //    .Where(predicate.Compile());
-
-                return null;
+                var result = await _mongoDataBase.GetProducts();
+                var filtered = result.Where(predicate.Compile());
+                return new BaseGatewayResponse<IEnumerable<Product>>(filtered);
             }
             catch (Exception ex)
             {

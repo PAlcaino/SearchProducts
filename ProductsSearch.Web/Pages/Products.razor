@@ -1,15 +1,21 @@
 ﻿@page "/products"
+@page "/products/{SearchTerm}"
 
 @using ProductsSearch.Web.Services
 @using ProductsSearch.Web.Components
 
 @inject IProductsService ProductsService
 
-<h1>Productos</h1>
 
 @if (products == null && string.IsNullOrEmpty(ErrorMessage) && string.IsNullOrEmpty(NoItemsFoundMessage))
 {
-    <p><em>Loading...</em></p>
+<div class="col-12">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100px">
+        <div class="spinner-grow text-primary" role="status" />
+        <p class="sr-only">Cargando...</p>
+    </div>
+</div>
+
 }
 else if (products?.Any() ?? false)
 {
@@ -42,13 +48,16 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 }
 
 @code {
+    [Parameter]
+    public string SearchTerm { get; set; }
+
     private IEnumerable<Product> products;
     private string ErrorMessage;
     private string NoItemsFoundMessage;
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await ProductsService.GetProducts();
+        var response = await ProductsService.GetProducts(SearchTerm ?? string.Empty);
 
         if (response.Success && response.Products != null && response.Products.Any())
         {

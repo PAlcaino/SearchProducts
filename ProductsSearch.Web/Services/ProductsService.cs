@@ -28,7 +28,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<ProductsViewModel> GetProducts()
+        public async Task<ProductsViewModel> GetProducts(string searchTerm)
         {
             List<Error> errors = new List<Error>();
 
@@ -36,13 +36,13 @@
             {
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var url = _apiSettings.BaseUrl + _apiSettings.GetProductsEndpoint;
+                var url = $"{ _apiSettings.BaseUrl}{ _apiSettings.GetProductsEndpoint}{searchTerm ?? string.Empty}";
                 var response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
                     return new ProductsViewModel
                     {
-                        Message = "Ha Ocurrido un error al obtener los productos"
+                        Message = "Ha ocurrido un error al obtener los productos"
                     };
                 }
 
