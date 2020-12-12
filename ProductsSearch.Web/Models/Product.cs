@@ -1,48 +1,48 @@
-﻿namespace DataAccess.Models
+﻿namespace ProductsSearch.Web.Models
 {
-    using MongoDB.Bson;
-    using MongoDB.Bson.Serialization.Attributes;
-
     /// <summary>
-    /// Represent a Business Product
+    /// Represents a single product ViewModel
     /// </summary>
-    public class ProductModel
+    public class Product
     {
         /// <summary>
         /// Get or Sets Product's Identifier
         /// </summary>
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId ObjectId { get; set; }
-
-        /// <summary>
-        /// Get or Sets Product's Identifier
-        /// </summary>
-        [BsonElement("id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Get or Sets Product's Brand
         /// </summary>
-        [BsonElement("brand")]
         public string Brand { get; set; }
 
         /// <summary>
         /// Gets or sets the Product's Description
         /// </summary>
-        [BsonElement("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the Product's Image
         /// </summary>
-        [BsonElement("image")]
         public string ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the Product's Price
         /// </summary>
-        [BsonElement("price")]
         public long Price { get; set; }
+
+        /// <summary>
+        /// Gets the Product's Offer Price if any
+        /// </summary>
+        public long OfferPrice { get; set; }
+
+        /// <summary>
+        /// Gets the Applied Discount if any
+        /// </summary>
+        public int AppliedDiscount { get; set; }
+
+        /// <summary>
+        /// Determines if the product has any discount, otherwise, false.
+        /// </summary>
+        public bool HasDiscount => AppliedDiscount > 0 && OfferPrice > 0;
     }
 }

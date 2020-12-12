@@ -1,64 +1,35 @@
 ﻿namespace DataAccess
 {
+    using AutoMapper;
     using DataAccess.Interfaces;
     using DataAccess.Models;
-    using Microsoft.Extensions.Configuration;
-    using MongoDB.Driver;
+    using ProductsSearch.Core.Entities;
+    using ProductsSearch.Infrastructure.Interfaces;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Provides Data Access Methods to a Mongo Database
     /// </summary>
-    public class MongoDataAccess : IMongoDataAccess
+    public class MongoDataAccess : IDataAccess
     {
-        private readonly MongoDatabase database;
+        private readonly IMongoDBHelper _mongoDBHelper;
+        private readonly IMapper _mapper;
 
-        public MongoDataAccess(IConfiguration configuration)
+        public MongoDataAccess(IMongoDBHelper mongoDBHelper, IMapper mapper)
         {
-            //MongoClient client = new MongoClient(configuration.GetConnectionString("ConnectionString"));
-            //MongoServer server = client.GetServer();
-            //database = server.GetDatabase("test");
+            _mongoDBHelper = mongoDBHelper;
+            _mapper = mapper;
         }
 
-        public IEnumerable<ProductModel> GetItems<T>(IMongoQuery query = null)
+        /// <summary>
+        /// Retrieves a list of products from the repository
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Product>> GetProducts()
         {
-            var items = new List<ProductModel>()
-            {
-                new ProductModel
-                {
-                    Id = 1,
-                    Brand = "Chan",
-                    Description = "Descripcoin",
-                    ImageUrl = "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]",
-                    Price = 10000
-                },
-                new ProductModel
-                {
-                    Id = 2,
-                    Brand = "Chan1",
-                    Description = "Descripcoin",
-                    ImageUrl = "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]",
-                    Price = 20000
-                },
-                new ProductModel
-                {
-                    Id = 3,
-                    Brand = "Chan2",
-                    Description = "Descripcoin",
-                    ImageUrl = "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]",
-                    Price = 30000
-                },
-                new ProductModel
-                {
-                    Id = 4,
-                    Brand = "Chan3",
-                    Description = "Descripcoin",
-                    ImageUrl = "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]",
-                    Price = 40000
-                }
-            };
-
-            return items;
+            var products = await _mongoDBHelper.GetDocuments<ProductModel>("promotions", "products", null);
+            return _mapper.Map<IEnumerable<Product>>(products);
         }
     }
 }

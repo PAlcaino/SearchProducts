@@ -5,8 +5,14 @@
     ///<inheritdoc cref="IUseCaseRequest{GetProductsResponse}"/>
     public class GetProductsRequest : IUseCaseRequest<GetProductsResponse>
     {
-        public GetProductsRequest()
+        /// <summary>
+        /// Optional Products Filter Term
+        /// </summary>
+        public string FilterTerm { get; set; }
+
+        public GetProductsRequest(string filterTerm = null)
         {
+            FilterTerm = filterTerm;
         }
     }
 }

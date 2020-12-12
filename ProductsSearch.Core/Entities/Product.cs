@@ -6,12 +6,12 @@
     public class Product
     {
         /// <summary>
-        /// Get or Sets Product's Identifier
+        /// Get Product's Identifier
         /// </summary>
         public int Id { get; private set; }
 
         /// <summary>
-        /// Get or Sets Product's Brand
+        /// Get Product's Brand
         /// </summary>
         public string Brand { get; private set; }
 
@@ -21,14 +21,24 @@
         public string Description { get; private set; }
 
         /// <summary>
-        /// Gets or sets the Product's Image
+        /// Gets the Product's Image
         /// </summary>
         public string ImageUrl { get; private set; }
 
         /// <summary>
-        /// Gets or sets the Product's Price
+        /// Gets the Product's Price
         /// </summary>
         public long Price { get; private set; }
+
+        /// <summary>
+        /// Gets the Product's Offer Price if any
+        /// </summary>
+        public long OfferPrice { get; private set; }
+
+        /// <summary>
+        /// Gets the Applied Discount if any
+        /// </summary>
+        public int AppliedDiscount { get; private set; }
 
         /// <summary>
         /// Mapping Constructor
@@ -40,6 +50,19 @@
             Description = description;
             ImageUrl = imageUrl;
             Price = price;
+        }
+
+        /// <summary>
+        /// Applies a Discount of this Product
+        /// </summary>
+        /// <param name="percentage"></param>
+        public void ApplyDiscount(int percentage)
+        {
+            if (percentage < 0)
+                return;
+
+            this.OfferPrice = Price - (percentage * Price / 100);
+            this.AppliedDiscount = percentage;
         }
     }
 }

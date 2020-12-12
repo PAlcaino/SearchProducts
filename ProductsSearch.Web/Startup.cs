@@ -1,13 +1,10 @@
 namespace ProductsSearch.Web
 {
-    using DataAccess;
-    using DataAccess.Interfaces;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using ProductsSearch.Infrastructure;
     using ProductsSearch.Web.Services;
     using System;
     using System.Net.Http;
@@ -18,34 +15,38 @@ namespace ProductsSearch.Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
-
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configure all required services for Dependency Injection
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<IMongoDataAccess, MongoDataAccess>();
-            services.AddSingleton(s =>
-            {
-                return MappingProfileConfig.Activate();
-            });
-            services.AddScoped<IProductsService, ProductsService>();
-
-            ApiSettings apiSettings = new ApiSettings();
-            Configuration.Bind("ApiSettings", apiSettings);
 
             services.AddScoped(sp => new HttpClient
             {
-                BaseAddress = new Uri(apiSettings.BaseUrl)
+                BaseAddress = new Uri(Configuration["ApiSettings:BaseUrl"])
             });
 
-            services.Configure<ApiSettings>(Configuration);
+            var apisettings = new ApiSettings();
+            Configuration.Bind("ApiSettings", apisettings);
+
+            services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
+
+            services.AddScoped<IProductsService, ProductsService>();
         }
 
+        /// <summary>
+        /// Configure application settings
+        /// </summary>
+        /// <param name="services"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

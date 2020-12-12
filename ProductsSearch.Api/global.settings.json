@@ -1,0 +1,16 @@
+{
+  "ResponsesSettings": {
+    "GetEntityNotFound": "No se encontró entidad del tipo '{0}' con el identificador: '{1}' en el repositorio.",
+    "GetNoEntitiesFound": "No se encuentran entidades del tipo '{0}' en el repositorio.",
+    "InternalErrorMessage": "Ha ocurrido un Error interno en la aplicacion, por favor intente nuevamente.",
+    "OperationSuccessMessage": "La Operación '{0}' fue ejecutada con éxito!.",
+    "ParamIsInvalidError": "El parámetro '{0}' no es válido. Intente con otro valor.",
+    "ParamIsMissingError": "El parámetro '{0}' es requerido.",
+    "RequestMissingErrorMessage": "Petición inválida. La llamada a este servicio requiere parámetros.",
+    "InvalidParamErrorMessage": "El parámetro {0} entregado en la llamada es inválido."
+  },
+  "DatabaseSettings": {
+    "DatabaseName": "promotions",
+    "CollectionName": "products"
+  }
+}
