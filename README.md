@@ -9,8 +9,8 @@ docker exec mongodb-local bash -c "./database/import.sh localhost"
 
 TODO: 
 -Pagination Products
-   Sets pagination on products API endpoint and page to reduce overload.
+	Sets pagination on products API endpoint and page to reduce overload.
 -Move MongoDBHelper Connection String 
-   To a secure place like Azure Key Vault
+	To a secure place like Azure Key Vault
 -Fix Docker Containers Build
-   There are some issues running Containers on Visual studio with windows and Azure Functions.
+	There are some issues running Containers on Visual studio with windows and Azure Functions.
