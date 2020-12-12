@@ -29,5 +29,20 @@
         /// Gets or sets the Product's Price
         /// </summary>
         public long Price { get; set; }
+
+        /// <summary>
+        /// Gets the Product's Offer Price if any
+        /// </summary>
+        public long OfferPrice { get; set; }
+
+        /// <summary>
+        /// Gets the Applied Discount if any
+        /// </summary>
+        public int AppliedDiscount { get; set; }
+
+        /// <summary>
+        /// Determines if the product has any discount, otherwise, false.
+        /// </summary>
+        public bool HasDiscount => AppliedDiscount > 0 && OfferPrice > 0;
     }
 }

@@ -36,6 +36,11 @@
         public long OfferPrice { get; private set; }
 
         /// <summary>
+        /// Gets the Applied Discount if any
+        /// </summary>
+        public int AppliedDiscount { get; private set; }
+
+        /// <summary>
         /// Mapping Constructor
         /// </summary>
         public Product(int id, string brand, string description, string imageUrl, long price)
@@ -53,7 +58,11 @@
         /// <param name="percentage"></param>
         public void ApplyDiscount(int percentage)
         {
-            this.OfferPrice = Price - (percentage * 100 / Price);
+            if (percentage < 0)
+                return;
+
+            this.OfferPrice = Price - (percentage * Price / 100);
+            this.AppliedDiscount = percentage;
         }
     }
 }

@@ -36,7 +36,7 @@
             {
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var url = $"{ _apiSettings.BaseUrl}{ _apiSettings.GetProductsEndpoint}{searchTerm ?? string.Empty}";
+                var url = $"{ _apiSettings.BaseUrl}{ _apiSettings.GetProductsEndpoint}/{searchTerm ?? string.Empty}";
                 var response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {

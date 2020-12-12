@@ -1,10 +1,24 @@
-﻿<div class="card" style="width: 18rem;">
-    <svg class="svg" >
-        <image href="http://@Product.ImageUrl" alt="Product Image" class="image"/>
+﻿@using System
+@using System.Globalization;
+
+<div class="card" style="width: 18rem;">
+    <svg class="svg">
+        <image href="http://@Product.ImageUrl" alt="Product Image" class="image" />
     </svg>
     <div class="card-body">
         <h5 class="card-title">@Product.Brand</h5>
         <p class="card-text">@Product.Description</p>
+        <div>
+            @if (Product.HasDiscount)
+            {
+                <strike class="product-price-crossedout">@Product.Price.ToString("C", CultureInfo.CurrentCulture)</strike>
+                <span class="product-price"> @Product.OfferPrice.ToString("C", CultureInfo.CurrentCulture)</span>
+            }
+            else
+            {
+                <span class="product-price">@Product.Price.ToString("C", CultureInfo.CurrentCulture)</span> 
+            }
+        </div>
         <a href="#" class="btn btn-primary">Agregar</a>
     </div>
 </div>

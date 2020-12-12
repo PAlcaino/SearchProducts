@@ -41,17 +41,27 @@
             BaseGatewayResponse<IEnumerable<Product>> getProductsResponse = null;
 
             //Gets the products
-            if(string.IsNullOrWhiteSpace(message.FilterTerm))            
-                getProductsResponse = await _getProductsFromRepository.GetList();            
-            else            
+            if(string.IsNullOrWhiteSpace(message.FilterTerm))
+                getProductsResponse = await _getProductsFromRepository.GetList();
+            else
+            {
                 getProductsResponse = await _getProductsFromRepository.GetList(x => x.Id.Equals(message.FilterTerm) || x.Brand.Equals(message.FilterTerm) || x.Description.Equals(message.FilterTerm));
+                
+                //Debt: Sets discounts in a service for future discounts scenarios
+                if(message.FilterTerm.IsPalindrome())
+                {
+                    foreach (var product in getProductsResponse.Data)
+                    {
+                        product.ApplyDiscount(50);
+                    }
+                }
+            }
             
             //Verify Errors
             if (!getProductsResponse.Success)
                 errors.AddRange(getProductsResponse.Errors ?? new List<Error>());
             else if (!getProductsResponse.Data?.Any() ?? true)
                 errors.Add(new Error(nameof(_responsesSettings.GetNoEntitiesFound), string.Format(_responsesSettings.GetNoEntitiesFound, nameof(Product))));
-
 
             outputPort.Handle(!errors.Any() ? new GetProductsResponse(getProductsResponse.Data) : new GetProductsResponse(errors));
             return !errors.Any();

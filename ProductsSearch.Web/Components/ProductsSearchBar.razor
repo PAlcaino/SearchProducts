@@ -3,7 +3,7 @@
 
 <div>
     <div class="search">
-        <input type="text" class="searchTerm" placeholder="¿Qué estas buscando?" value="@searchTerm">
+        <input type="text" class="searchTerm" placeholder="¿Qué estas buscando?" @bind="searchTerm">
         <button type="submit" class="searchButton" @onclick="SearchProducts">
             <span class="oi oi-magnifying-glass"></span>
         </button>
@@ -16,6 +16,6 @@
     private void SearchProducts()
     {
         string url = $"products/{searchTerm}";
-        NavigationManager.NavigateTo(url);
+        NavigationManager.NavigateTo(url, true);
     }
 }
