@@ -3,7 +3,7 @@
     using Microsoft.Extensions.Options;
     using Newtonsoft.Json;
     using ProductsSearch.Core.Dto;
-    using ProductsSearch.Core.Entities;
+    using ProductsSearch.Web.ViewModels;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -28,7 +28,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<BaseGatewayResponse<IEnumerable<Product>>> GetProducts()
+        public async Task<ProductsViewModel> GetProducts(string searchTerm)
         {
             List<Error> errors = new List<Error>();
 
@@ -36,19 +36,26 @@
             {
                 _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await _httpClient.GetAsync(_apiSettings.BaseUrl + _apiSettings.GetProductsEndpoint);
+                var url = $"{ _apiSettings.BaseUrl}{ _apiSettings.GetProductsEndpoint}/{searchTerm ?? string.Empty}";
+                var response = await _httpClient.GetAsync(url);
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new BaseGatewayResponse<IEnumerable<Product>>(new List<Error>() { new Error("Error", "") });
+                    return new ProductsViewModel
+                    {
+                        Message = "Ha ocurrido un error al obtener los productos"
+                    };
                 }
 
                 var body = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<BaseGatewayResponse<IEnumerable<Product>>>(body);
+                return JsonConvert.DeserializeObject<ProductsViewModel>(body);
             }
             catch (System.Exception ex)
             {
                 errors.Add(new Error(ex.GetType().ToString(), ex.Message));
-                return new BaseGatewayResponse<IEnumerable<Product>>(errors);
+                return new ProductsViewModel
+                {
+                    Message = ex.Message
+                };
             }            
         }
     }

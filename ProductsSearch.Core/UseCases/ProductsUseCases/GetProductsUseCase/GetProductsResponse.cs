@@ -10,26 +10,26 @@
         /// <summary>
         /// Gets or sets a Lists of Products
         /// </summary>
-        public IEnumerable<Product> Productos { get; set; }
+        public IEnumerable<Product> Products { get; set; }
 
         /// <summary>
         /// Represents an unsuccessfull response of the use case
         /// </summary>
-        /// <param name="errores"></param>
-        /// <param name="mensaje"></param>
-        public GetProductsResponse(IEnumerable<Error> errores, string mensaje = null)
-            : base(false, mensaje, errores)
+        /// <param name="errors"></param>
+        /// <param name="message"></param>
+        public GetProductsResponse(IEnumerable<Error> errors, string message = null)
+            : base(false, message, errors)
         { }
 
         /// <summary>
         /// Represents an successfull response of the use case
         /// </summary>
         /// <param name="products">Extensions allowed by edocs</param>
-        /// <param name="mensaje">Response Message</param>
-        public GetProductsResponse(IEnumerable<Product> products, string mensaje = null)
-           : base(true, mensaje)
+        /// <param name="message">Response Message</param>
+        public GetProductsResponse(IEnumerable<Product> products, string message = null)
+           : base(true, message)
         {
-            Productos = products;
+            Products = products;
         }
     }
 }

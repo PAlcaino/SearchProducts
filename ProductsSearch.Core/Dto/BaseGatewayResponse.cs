@@ -1,5 +1,6 @@
 ﻿namespace ProductsSearch.Core.Dto
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     /// <summary>
@@ -53,6 +54,7 @@
         /// Response Constructor with data
         /// </summary>
         /// <param name="data"></param>
+        [JsonConstructor]
         public BaseGatewayResponse(T data)
             : base(true, null)
         {

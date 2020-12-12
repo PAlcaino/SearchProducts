@@ -1,8 +1,8 @@
 database-docker-up:
-	docker run -d --rm -e MONGO_INITDB_ROOT_USERNAME=productListUser -e MONGO_INITDB_ROOT_PASSWORD=productListPassword -p 27017:27017 --name mongodb-local -v "$(shell pwd)/database":/database mongo:3.6.8
+	docker run -d --rm -e MONGO_INITDB_ROOT_USERNAME=productListUser -e MONGO_INITDB_ROOT_PASSWORD=productListPassword -p 27017:27017 --name mongodb-local -v C:/Users/PabloAlcaino/source/repos/ProductsSearch/products-db-master/database:/database mongo:3.6.8
 
 database-provision:
-	docker exec mongodb-local bash -c './database/import.sh localhost'
+	docker exec mongodb-local bash -c "./database/import.sh localhost"
 
 database-up:
 	make database-docker-up
@@ -14,3 +14,5 @@ database-reset:
 
 database-down:
 	docker rm -f mongodb-local
+
+docker run -d --rm -e MONGO_INITDB_ROOT_USERNAME=productListUser -e MONGO_INITDB_ROOT_PASSWORD=productListPassword -p 27017:27017 --name mongodb-local -v C:\users:/database mongo:3.6.8
