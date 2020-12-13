@@ -2,6 +2,7 @@
 {
     using DataAccess.Models;
     using ProductsSearch.Core.Entities;
+    using ProductsSearch.Core.Models;
     using System.Collections.Generic;
 
     public static class TestModelFactory
@@ -53,9 +54,9 @@
         /// Products Sample
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<Product> GetProductSample()
+        public static PagedList<Product> GetProductSample()
         {
-            return new List<Product>()
+            var items = new List<Product>()
             {
                 new Product(1, "Marca1", "Descripcion1", "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]", 1000),
                 new Product(1, "Marca2", "Descripcion2", "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]", 2000),
@@ -66,6 +67,8 @@
                 new Product(1, "Marca7", "Descripcion7", "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]", 7000),
                 new Product(1, "Marca8", "Descripcion8", "https://images.lider.cl/wmtcl?set=imageSize[medium],imageURL[file:/productos/BNDLSKU_20000278a.jpg],options[progressive]&call=url[file:catalog/sizing.chain]&sink=format[jpg],options[progressive]", 8000)
             };
+
+            return new PagedList<Product>(items, items.Count, 1, 50);
         }
     }
 }

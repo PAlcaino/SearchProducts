@@ -5,12 +5,10 @@
     using ProductsSearch.Common.Tests;
     using ProductsSearch.Core.Dto;
     using ProductsSearch.Core.Entities;
+    using ProductsSearch.Core.Models;
     using ProductsSearch.Core.Operations;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductsUseCase;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using Xunit;
 
@@ -22,7 +20,7 @@
             GetProductsResponse useCaseResponse = null;
 
             // Mock dependencies
-            var mockGetExtensions = new Mock<IGetListFromRepository<Product>>();
+            var mockGetExtensions = new Mock<IGetPagedListFromRepository<Product>>();
             var mockResponsesMessagesSettings = new Mock<IOptions<Dto.ResponsesSettings>>();
             var mockOutput = new Mock<UseCases.IOutputPort<GetProductsResponse>>();
 
@@ -60,7 +58,7 @@
             var allProducts = TestModelFactory.GetProductSample();
 
             // Mock dependencies
-            var mockGetProducts = new Mock<IGetListFromRepository<Product>>();
+            var mockGetProducts = new Mock<IGetPagedListFromRepository<Product>>();
             var mockResponsesMessagesSettings = new Mock<IOptions<Dto.ResponsesSettings>>();
             var mockOutput = new Mock<UseCases.IOutputPort<GetProductsResponse>>();
 
@@ -77,8 +75,8 @@
                 });
 
             mockGetProducts
-                .Setup(x => x.GetList(It.IsAny<Expression<Func<Product, bool>>>()))
-                .ReturnsAsync(new BaseGatewayResponse<IEnumerable<Product>>(allProducts));
+                .Setup(x => x.GetProducts(It.IsAny<PageParameters>(),It.IsAny<string>()))
+                .ReturnsAsync(new BaseGatewayResponse<PagedList<Product>>(allProducts));
 
             // Arrange
             var useCase = new GetProductsUseCase(
@@ -103,7 +101,7 @@
             var filterTerm = "brand";
 
             // Mock dependencies
-            var mockGetProducts = new Mock<IGetListFromRepository<Product>>();
+            var mockGetProducts = new Mock<IGetPagedListFromRepository<Product>>();
             var mockResponsesMessagesSettings = new Mock<IOptions<Dto.ResponsesSettings>>();
             var mockOutput = new Mock<UseCases.IOutputPort<GetProductsResponse>>();
 
@@ -120,15 +118,15 @@
                 });
 
             mockGetProducts
-                .Setup(x => x.GetList(It.IsAny<Expression<Func<Product, bool>>>()))
-                .ReturnsAsync(new BaseGatewayResponse<IEnumerable<Product>>(allProducts));
+                .Setup(x => x.GetProducts(It.IsAny<PageParameters>(), It.IsAny<string>()))
+                .ReturnsAsync(new BaseGatewayResponse<PagedList<Product>>(allProducts));
 
             // Arrange
             var useCase = new GetProductsUseCase(
                 mockGetProducts.Object,
                 mockResponsesMessagesSettings.Object);
 
-            var request = new GetProductsRequest(filterTerm);
+            var request = new GetProductsRequest(new PageParameters(), filterTerm);
 
             // Act
             var result = await useCase.Handle(request, mockOutput.Object);
@@ -142,9 +140,10 @@
         public async Task Handle_If_Filter_Term_Is_Invalid_Should_Return_Unsuccessful_Response()
         {
             GetProductsResponse useCaseResponse = null;
+            var allProducts = TestModelFactory.GetProductSample();
 
             // Mock dependencies
-            var mockGetProducts = new Mock<IGetListFromRepository<Product>>();
+            var mockGetProducts = new Mock<IGetPagedListFromRepository<Product>>();
             var mockResponsesMessagesSettings = new Mock<IOptions<Dto.ResponsesSettings>>();
             var mockOutput = new Mock<UseCases.IOutputPort<GetProductsResponse>>();
 
@@ -161,16 +160,15 @@
                 });
 
             mockGetProducts
-                .Setup(x => x.GetList(It.IsAny<Expression<Func<Product, bool>>>()))
-                .ReturnsAsync(new BaseGatewayResponse<IEnumerable<Product>>(
-                    TestModelFactory.GetProductSample()));
+               .Setup(x => x.GetProducts(It.IsAny<PageParameters>(), It.IsAny<string>()))
+               .ReturnsAsync(new BaseGatewayResponse<PagedList<Product>>(allProducts));
 
             // Arrange
             var useCase = new GetProductsUseCase(
                 mockGetProducts.Object,
                 mockResponsesMessagesSettings.Object);
 
-            var request = new GetProductsRequest("&ASDG%&/");
+            var request = new GetProductsRequest(new PageParameters(), "&ASDG%&/");
 
             // Act
             var result = await useCase.Handle(request, mockOutput.Object);

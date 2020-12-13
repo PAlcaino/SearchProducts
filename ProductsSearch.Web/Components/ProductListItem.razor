@@ -16,8 +16,10 @@
             }
             else
             {
-                <span class="product-price">@Product.Price.ToString("C", CultureInfo.CurrentCulture)</span> 
+                <span class="product-price">@Product.Price.ToString("C", CultureInfo.CurrentCulture)</span>
             }
+
+            <span class="product-id">SKU @Product.Id</span>
         </div>
         <a href="#" class="btn btn-primary">Agregar</a>
     </div>
@@ -25,5 +27,5 @@
 
 @code {
     [Parameter]
-    public Product Product { get; set; }
+    public ProductViewModel Product { get; set; }
 }

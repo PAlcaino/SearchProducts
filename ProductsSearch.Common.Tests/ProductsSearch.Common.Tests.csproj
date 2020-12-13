@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MongoDataAccess\ProductsSearch.Infrastructure.csproj" />
     <ProjectReference Include="..\ProductsSearch.Core\ProductsSearch.Core.csproj" />
+    <ProjectReference Include="..\ProductsSearch.Infrastructure\ProductsSearch.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
