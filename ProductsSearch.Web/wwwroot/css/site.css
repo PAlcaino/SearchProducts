@@ -73,6 +73,14 @@ html, body {
     margin-bottom: 10px;
 }
 
+.product-id {
+    font-size: 1rem;
+    line-height: 1rem;
+    color: gray;
+    font-weight: lighter;
+    margin-bottom: 10px;
+}
+
 a, .btn-link {
     color: #0366d6;
 }

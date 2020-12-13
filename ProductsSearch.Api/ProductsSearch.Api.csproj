@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
     <DockerFastModeProjectMountDirectory>/home/site/wwwroot</DockerFastModeProjectMountDirectory>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
@@ -14,8 +14,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProductsSearch.Common\ProductsSearch.Common.csproj" />
     <ProjectReference Include="..\ProductsSearch.Core\ProductsSearch.Core.csproj" />
-    <ProjectReference Include="..\ProductsSearch.Web\ProductsSearch.Web.csproj" />
+    <ProjectReference Include="..\ProductsSearch.Infrastructure\ProductsSearch.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="global.settings.json">
@@ -27,11 +28,6 @@
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="..\.dockerignore">
-      <DependentUpon>Dockerfile</DependentUpon>
     </None>
   </ItemGroup>
 </Project>

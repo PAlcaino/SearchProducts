@@ -1,9 +1,9 @@
-﻿namespace ProductsSearch.Web.Models
+﻿namespace ProductsSearch.Common.ViewModels
 {
     /// <summary>
-    /// Represents a single product ViewModel
+    /// Product View Model
     /// </summary>
-    public class Product
+    public class ProductViewModel
     {
         /// <summary>
         /// Get or Sets Product's Identifier

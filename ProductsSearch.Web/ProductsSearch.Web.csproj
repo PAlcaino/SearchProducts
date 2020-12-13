@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>c3b05b1d-ceca-4411-afcc-ddb338301345</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,14 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MongoDataAccess\ProductsSearch.Infrastructure.csproj" />
+    <ProjectReference Include="..\ProductsSearch.Common\ProductsSearch.Common.csproj" />
     <ProjectReference Include="..\ProductsSearch.Core\ProductsSearch.Core.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="..\.dockerignore">
-      <DependentUpon>Dockerfile</DependentUpon>
-    </None>
-  </ItemGroup>
-
 </Project>

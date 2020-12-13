@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ProductsSearch.Api\ProductsSearch.Api.csproj" />
     <ProjectReference Include="..\ProductsSearch.Common.Tests\ProductsSearch.Common.Tests.csproj" />
+    <ProjectReference Include="..\ProductsSearch.Infrastructure\ProductsSearch.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

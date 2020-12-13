@@ -1,9 +1,6 @@
 ﻿@page "/products"
 @page "/products/{searchTerm}"
 
-@using ProductsSearch.Web.Services
-@using ProductsSearch.Web.Components
-
 @inject IProductsService ProductsService
 
 
@@ -28,6 +25,11 @@ else if (products?.Any() ?? false)
                 </div>
             }
         </div>
+        <div class="row">
+            <div class="col">
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+            </div>
+        </div>
     </div>
 }
 else if (!string.IsNullOrEmpty(NoItemsFoundMessage))
@@ -48,20 +50,33 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 }
 
 @code {
-    [Parameter]
-    public string SearchTerm { get; set; }
-
-    private IEnumerable<Product> products;
+    private IEnumerable<ProductViewModel> products;
     private string ErrorMessage;
     private string NoItemsFoundMessage;
+    private PageParameters pageParameters = new PageParameters();
+
+    [Parameter]
+    public string SearchTerm { get; set; }
+    public PageMetadata MetaData { get; set; } = new PageMetadata();
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await ProductsService.GetProducts(SearchTerm ?? string.Empty);
+        await GetProducts();
+    }
 
-        if (response.Success && response.Products != null && response.Products.Any())
+    private async Task SelectedPage(int page)
+    {
+        pageParameters.PageNumber = page;
+        await GetProducts();
+    }
+    private async Task GetProducts()
+    {
+        var response = await ProductsService.GetProducts(pageParameters, SearchTerm);
+
+        if (response.Success && response.Items != null && response.Items.Any())
         {
-            products = response.Products;
+            products = response.Items;
+            MetaData = response.MetaData;
         }
         else if (!string.IsNullOrEmpty(response.Message))
         {

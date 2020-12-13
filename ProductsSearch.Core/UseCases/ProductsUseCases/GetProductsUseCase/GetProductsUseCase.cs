@@ -3,6 +3,7 @@
     using Microsoft.Extensions.Options;
     using ProductsSearch.Core.Dto;
     using ProductsSearch.Core.Entities;
+    using ProductsSearch.Core.Models;
     using ProductsSearch.Core.Operations;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductUseCase;
     using System.Collections.Generic;
@@ -12,10 +13,10 @@
     ///<inheritdoc cref="IGetProductsUseCase"/>
     public class GetProductsUseCase : IGetProductsUseCase
     {
-        private readonly IGetListFromRepository<Product> _getProductsFromRepository;
+        private readonly IGetPagedListFromRepository<Product> _getProductsFromRepository;
         private readonly ResponsesSettings _responsesSettings;
 
-        public GetProductsUseCase(IGetListFromRepository<Product> getFromRepository, IOptions<ResponsesSettings> responsesSettings)
+        public GetProductsUseCase(IGetPagedListFromRepository<Product> getFromRepository, IOptions<ResponsesSettings> responsesSettings)
         {
             _getProductsFromRepository = getFromRepository;
             _responsesSettings = responsesSettings.Value;
@@ -38,14 +39,14 @@
                 return false;
             }
 
-            BaseGatewayResponse<IEnumerable<Product>> getProductsResponse = null;
+            BaseGatewayResponse<PagedList<Product>> getProductsResponse = null;
 
             //Gets the products
             if(string.IsNullOrWhiteSpace(message.FilterTerm))
-                getProductsResponse = await _getProductsFromRepository.GetList();
+                getProductsResponse = await _getProductsFromRepository.GetProducts(message.PageParameters);
             else
             {
-                getProductsResponse = await _getProductsFromRepository.GetList(x => x.Id.Equals(message.FilterTerm) || x.Brand.Equals(message.FilterTerm) || x.Description.Equals(message.FilterTerm));
+                getProductsResponse = await _getProductsFromRepository.GetProducts(message.PageParameters, message.FilterTerm);
                 
                 //Debt: Sets discounts in a service for future discounts scenarios
                 if(message.FilterTerm.IsPalindrome())

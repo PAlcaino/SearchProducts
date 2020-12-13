@@ -1,6 +1,5 @@
 ﻿namespace ProductsSearch.Infrastructure.Operations
 {
-    using AutoMapper;
     using DataAccess.Interfaces;
     using Microsoft.Extensions.Options;
     using ProductsSearch.Core.Dto;
@@ -16,13 +15,11 @@
     public class GetProductsFromRepository : IGetListFromRepository<Product>
     {
         private readonly IDataAccess _mongoDataBase;
-        private readonly IMapper _mapper;
         private readonly ResponsesSettings _responsesSettings;
 
-        public GetProductsFromRepository(IDataAccess mongoDataBase, IMapper mapper, IOptions<ResponsesSettings> responsesSettings)
+        public GetProductsFromRepository(IDataAccess mongoDataBase, IOptions<ResponsesSettings> responsesSettings)
         {
             _mongoDataBase = mongoDataBase;
-            _mapper = mapper;
             _responsesSettings = responsesSettings.Value;
         }
 
