@@ -2,6 +2,7 @@
 {
     using ProductsSearch.Core.Dto;
     using ProductsSearch.Core.Entities;
+    using ProductsSearch.Core.Models;
     using System.Collections.Generic;
 
     ///<inheritdoc cref="UseCaseResponseMessage"/>
@@ -10,7 +11,7 @@
         /// <summary>
         /// Gets or sets a Lists of Products
         /// </summary>
-        public IEnumerable<Product> Products { get; set; }
+        public PagedList<Product> Products { get; set; }
 
         /// <summary>
         /// Represents an unsuccessfull response of the use case
@@ -26,7 +27,7 @@
         /// </summary>
         /// <param name="products">Extensions allowed by edocs</param>
         /// <param name="message">Response Message</param>
-        public GetProductsResponse(IEnumerable<Product> products, string message = null)
+        public GetProductsResponse(PagedList<Product> products, string message = null)
            : base(true, message)
         {
             Products = products;

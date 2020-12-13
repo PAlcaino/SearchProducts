@@ -62,12 +62,13 @@ namespace ProductsSearch.Api
 
             //Operations
             builder.Services.AddScoped<IGetListFromRepository<Product>, GetProductsFromRepository>();
+            builder.Services.AddScoped<IGetPagedListFromRepository<Product>, GetPagedProductsFromRepository>();
 
             //Use cases
             builder.Services.AddScoped<IGetProductsUseCase, GetProductsUseCase>();
 
             builder.Services.AddLogging();
-            builder.Services.AddHttpClient();
+            //builder.Services.AddHttpClient();
         }
     }
 }

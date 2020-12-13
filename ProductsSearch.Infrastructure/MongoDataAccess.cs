@@ -28,8 +28,17 @@
         /// <returns></returns>
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            var products = await _mongoDBHelper.GetDocuments<ProductModel>("promotions", "products", null);
-            return _mapper.Map<IEnumerable<Product>>(products);
+            try
+            {
+                var products = await _mongoDBHelper.GetDocuments<ProductModel>("promotions", "products", null);
+                return _mapper.Map<IEnumerable<Product>>(products);
+            }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

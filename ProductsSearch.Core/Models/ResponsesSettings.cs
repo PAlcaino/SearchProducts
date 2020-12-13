@@ -24,5 +24,10 @@
         /// Error Message for Invalid Request Parameters
         /// </summary>
         public string InvalidParamErrorMessage { get; set; }
+
+        /// <summary>
+        /// Error Message for failed request to the API
+        /// </summary>
+        public string RequestErrorMessage { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace ProductsSearch.Web.Services
 {
-    using ProductsSearch.Web.ViewModels;
+    using ProductsSearch.Common.ViewModels;
+    using ProductsSearch.Core.Models;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -12,6 +13,6 @@
         /// Retrieves a List of Products from the Service
         /// </summary>
         /// <returns></returns>
-        Task<ProductsViewModel> GetProducts(string searchTerm);
+        Task<PagingResponse<ProductViewModel>> GetProducts(PageParameters parameters, string searchTerm = null);
     }
 }
