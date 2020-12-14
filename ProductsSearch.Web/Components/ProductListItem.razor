@@ -13,6 +13,7 @@
             {
                 <strike class="product-price-crossedout">@Product.Price.ToString("C", CultureInfo.CurrentCulture)</strike>
                 <span class="product-price"> @Product.OfferPrice.ToString("C", CultureInfo.CurrentCulture)</span>
+                <span class="badge badge-danger">%@Product.AppliedDiscount</span>
             }
             else
             {
