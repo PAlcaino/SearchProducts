@@ -175,7 +175,7 @@
 
             // Assert
             Assert.False(result);
-            Assert.Contains(useCaseResponse.Errores, x => x.Codigo == nameof(TestsConfigurationHelper.ResponsesSettings.RequestMissingErrorMessage));
+            Assert.Contains(useCaseResponse.Errores, x => x.Codigo == nameof(TestsConfigurationHelper.ResponsesSettings.InvalidParamErrorMessage));
         }
     }
 }

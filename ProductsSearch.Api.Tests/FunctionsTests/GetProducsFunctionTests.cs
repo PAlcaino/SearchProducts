@@ -6,7 +6,6 @@
     using ProductsSearch.Api.Presenters;
     using ProductsSearch.Api.Presenters.ProductsPresenters;
     using ProductsSearch.Common.Tests;
-    using ProductsSearch.Core.Models;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductsUseCase;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductUseCase;
     using System;

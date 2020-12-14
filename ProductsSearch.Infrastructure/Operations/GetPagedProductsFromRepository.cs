@@ -24,7 +24,7 @@
             var products = await _mongoDataBase.GetProducts();
             if(!string.IsNullOrWhiteSpace(filterTerm))
             {
-                products = products.Where(x => x.Id.Equals(filterTerm) || x.Brand.Equals(filterTerm) || x.Description.Equals(filterTerm));
+                products = products.Where(x => x.Id.ToString().Equals(filterTerm) || x.Brand.Equals(filterTerm) || x.Description.Equals(filterTerm));
             }
 
             return new BaseGatewayResponse<PagedList<Product>>(PagedList<Product>
