@@ -31,7 +31,7 @@
                 var result = await _mongoDataBase.GetProducts();
                 return new BaseGatewayResponse<IEnumerable<Product>>(result);
             }
-            catch (Exception ex)
+            catch 
             {
                 return new BaseGatewayResponse<IEnumerable<Product>>(
                     new List<Error> { new Error(nameof(_responsesSettings.InternalErrorMessage), _responsesSettings.InternalErrorMessage) });
@@ -47,7 +47,7 @@
                 var filtered = result.Where(predicate.Compile());
                 return new BaseGatewayResponse<IEnumerable<Product>>(filtered);
             }
-            catch (Exception ex)
+            catch 
             {
                 return new BaseGatewayResponse<IEnumerable<Product>>(
                     new List<Error> { new Error(nameof(_responsesSettings.InternalErrorMessage), _responsesSettings.InternalErrorMessage) });

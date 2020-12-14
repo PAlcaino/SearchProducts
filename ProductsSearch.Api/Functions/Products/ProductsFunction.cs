@@ -6,7 +6,6 @@ namespace ProductsSearch.Api.Functions.Products
     using Microsoft.Azure.WebJobs.Extensions.Http;
     using Newtonsoft.Json;
     using ProductsSearch.Api.Presenters.ProductsPresenters;
-    using ProductsSearch.Api.Serialization;
     using ProductsSearch.Core.Models;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductsUseCase;
     using ProductsSearch.Core.UseCases.ProductsUseCases.GetProductUseCase;

@@ -40,7 +40,7 @@ namespace ProductsSearch.Api
         /// </summary>        
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var _ = new ConfigurationBuilder()
+            new ConfigurationBuilder()
               .SetBasePath(Environment.CurrentDirectory)
               .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
               .AddEnvironmentVariables()
@@ -68,7 +68,6 @@ namespace ProductsSearch.Api
             builder.Services.AddScoped<IGetProductsUseCase, GetProductsUseCase>();
 
             builder.Services.AddLogging();
-            //builder.Services.AddHttpClient();
         }
     }
 }
